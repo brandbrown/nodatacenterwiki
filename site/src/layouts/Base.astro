@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+import { withBase } from '../lib/url';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const fullTitle = title === 'home' ? 'Ahwatukee Data Center Watchdog' : `${title} · Ahwatukee Data Center Watchdog`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href={withBase('favicon.svg')} type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <div class="brand">
+          <a href={withBase('/')}>Ahwatukee Data Center Watchdog</a>
+          <small>Tracking MD-PHX1 · City case 23-1632</small>
+        </div>
+        <nav class="nav">
+          <a href={withBase('/')}>Timeline</a>
+          <a href={withBase('changelog')}>Latest Developments</a>
+          <a href={withBase('wiki')}>Knowledge Base</a>
+          <a href="https://nodatacenterahwatukee.org/" target="_blank" rel="noopener">Get Involved</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          Volunteer-built watchdog for the MD-PHX1 data center (City of Phoenix case 23-1632).
+          Publishes factual, source-linked information only; nothing here is legal advice.
+        </p>
+        <p>
+          Community effort of the <a href="https://nodatacenterahwatukee.org/" target="_blank" rel="noopener">Ahwatukee Community Alliance</a>.
+          Data updated automatically from public records and news.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

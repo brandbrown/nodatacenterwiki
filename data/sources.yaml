@@ -1,0 +1,107 @@
+# Sources monitored by the daily scanner (agents/scan.ts).
+#
+# type:
+#   http-json  - fetch JSON, hash a subset
+#   http-html  - fetch HTML, extract text via a CSS selector (cheerio), hash it
+#   http-raw   - fetch raw body, hash whole thing (use sparingly; noisy)
+#   browser    - requires a headless browser (Playwright); Phase 5, not run by default
+#   manual     - cannot be reliably automated yet; surfaced as a reminder to check by hand
+#
+# phase: which build phase enables this source. The scanner only runs sources
+#        whose phase is <= SCAN_PHASE (env, default 2).
+#
+# Each source gets a stable `id` used for snapshot filenames.
+
+sources:
+  - id: menlo-status
+    title: "Menlo Digital - MD-PHX1 development status"
+    type: http-html
+    phase: 2
+    url: "https://menlo-digital.com/portfolio/md-phx1-phoenix/"
+    selector: "main"
+    note: >
+      Developer's own status widget (Permitting %, Construction %, delivery quarters).
+      A change here is a strong signal the project advanced.
+    domains: [legal]
+
+  - id: alliance-site
+    title: "No Data Center Ahwatukee - homepage + documents"
+    type: http-html
+    phase: 2
+    url: "https://nodatacenterahwatukee.org/"
+    selector: "body"
+    note: "Community org site. New docs, events, and status statements appear here first."
+    domains: [legal, acoustic, air, water]
+
+  - id: ahwatukee-news
+    title: "Ahwatukee.com - data center coverage"
+    type: http-html
+    phase: 2
+    url: "https://www.ahwatukee.com/search/?q=data%20center"
+    selector: "body"
+    note: "Local paper. Watch for new articles on hearings, votes, permits."
+    domains: [legal]
+
+  - id: pdd-online-case
+    title: "Phoenix PDDOnline (legacy KIVA) - case 23-1632"
+    type: http-html
+    phase: 2
+    url: "https://apps-secure.phoenix.gov/PDD"
+    selector: "body"
+    note: >
+      Case 23-1632 (filed 2023) lives in the LEGACY system. Landing page is monitored;
+      deep case-status lookup likely needs a session/form POST - flagged for adapter work.
+    domains: [legal]
+
+  - id: maricopa-air-permits
+    title: "Maricopa County Air Quality - public notices / comment periods"
+    type: http-html
+    phase: 2
+    url: "https://www.maricopa.gov/1624/Public-Notices"
+    selector: "body"
+    note: >
+      TOP LEVERAGE. Lists proposed air permits with public comment start/end dates
+      (30-day windows per A.R.S. 49-426/49-480). Watch for the site / 100+ gensets.
+    domains: [air]
+
+  - id: maricopa-permit-reports
+    title: "Maricopa County Air Quality - weekly permit application reports"
+    type: http-html
+    phase: 2
+    url: "https://www.maricopa.gov/2427/Permitting-and-Enforcement-Reports"
+    selector: "body"
+    note: >
+      Earliest signal: lists permit APPLICATIONS RECEIVED before they reach public notice.
+      Watch for Menlo / Thistle / Thistle Landing / data center entries.
+    domains: [air]
+
+  - id: adeq-permits
+    title: "ADEQ - air quality public notices"
+    type: browser
+    phase: 5
+    url: "https://azdeq.gov/PublicNotices"
+    selector: "body"
+    note: >
+      State-level air permitting backstop. azdeq.gov sits behind a WAF that returns 403 to
+      non-browser requests, so this requires the Phase 5 headless-browser adapter.
+      Also see azdeq.gov/notices/aq/gp/issued30days for recently issued general permits.
+    domains: [air]
+
+  - id: phoenix-council-agendas
+    title: "Phoenix City Council - agendas & minutes"
+    type: http-html
+    phase: 2
+    url: "https://www.phoenix.gov/cityclerk/publicmeetings/city-council-meetings"
+    selector: "body"
+    note: "Watch for Thistle Landing / data center / case 23-1632 items on agendas."
+    domains: [legal]
+
+  # ---- Phase 5 (headless browser required) ----
+  - id: shape-phx
+    title: "SHAPE PHX portal - permit status by address"
+    type: browser
+    phase: 5
+    url: "https://shapephx.phoenix.gov/s/"
+    search_address: "4801 E Thistle Landing Dr"
+    note: "Salesforce Lightning SPA. Requires Playwright to read status. Phase 5."
+    domains: [legal]

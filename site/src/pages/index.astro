@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import Stage from '../components/Stage.astro';
+import { loadTimeline, progress } from '../lib/timeline';
+import { loadChangelog } from '../lib/changelog';
+import { withBase } from '../lib/url';
+
+const timeline = loadTimeline();
+const { done, total, pct } = progress(timeline);
+const p = timeline.project;
+const latest = loadChangelog().slice(0, 3);
+
+function fmtDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  } catch {
+    return iso;
+  }
+}
+---
+
+<Base title="home" description={p.summary}>
+  <section class="hero">
+    <h1>{p.name}</h1>
+    <div class="meta">{p.address} · City case {p.case}</div>
+    <p class="summary">{p.summary}</p>
+
+    <div class="factbar">
+      <span><b>Developer:</b> {p.developer}</span>
+      <span><b>Scale:</b> {p.scale}</span>
+      {p.developer_targets && <span><b>Developer targets:</b> {p.developer_targets}</span>}
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-head">
+        <span class="label">Checkpoints cleared by the developer</span>
+        <span class="pct">{done} / {total} ({pct}%)</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style={`width:${pct}%`}></div>
+      </div>
+      <p class="progress-note">
+        Fewer remaining checkpoints means less time to act. Denied or stalled stages
+        (in red) are where the project can still be stopped or delayed.
+      </p>
+    </div>
+  </section>
+
+  {latest.length > 0 && (
+    <section>
+      <h2 class="section-title">Latest developments</h2>
+      <p class="section-sub">
+        Auto-detected changes from official sources and news.
+        <a href={withBase('changelog')}> See all →</a>
+      </p>
+      <div class="change-list">
+        {latest.map((c) => (
+          <div class="change">
+            <div class="date">{fmtDate(c.date)} · {c.source}</div>
+            <h3>{c.url ? <a href={c.url} target="_blank" rel="noopener">{c.title}</a> : c.title}</h3>
+            <p>{c.summary}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section>
+    <h2 class="section-title">Project timeline &amp; checkpoints</h2>
+    <p class="section-sub">
+      Every stage this project must clear, its current status, and where residents may be able
+      to intervene. Openings are leads, coordinated with the Alliance and its attorney.
+    </p>
+    <div class="timeline">
+      {timeline.stages.map((stage) => <Stage stage={stage} />)}
+    </div>
+  </section>
+
+  <div class="notice">
+    This is a volunteer watchdog tool. Status reflects public records and news as of
+    {' '}{fmtDate(p.last_updated)}. Always verify time-sensitive items (like permit comment
+    windows) against the official source before acting.
+  </div>
+</Base>

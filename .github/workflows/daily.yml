@@ -1,0 +1,53 @@
+name: Daily scan
+
+on:
+  schedule:
+    # 13:17 UTC = ~06:17 America/Phoenix (Arizona is UTC-7 year-round, no DST).
+    - cron: '17 13 * * *'
+  workflow_dispatch:
+    inputs:
+      scan_phase:
+        description: 'Scan phase (2 = HTTP sources, 5 = incl. headless browser)'
+        default: '2'
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install agent deps
+        run: npm ci
+
+      - name: Run watchdog pipeline (scan -> analyze -> notify)
+        env:
+          # Secrets (set in repo Settings -> Secrets and variables -> Actions):
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          DIGEST_RECIPIENTS: ${{ secrets.DIGEST_RECIPIENTS }}
+          # Variables (optional, non-secret):
+          DIGEST_FROM: ${{ vars.DIGEST_FROM }}
+          SITE_PUBLIC_URL: ${{ vars.SITE_PUBLIC_URL }}
+          SCAN_PHASE: ${{ github.event.inputs.scan_phase || '2' }}
+        run: npm run pipeline
+
+      - name: Commit any detected changes
+        run: |
+          git config user.name "watchdog-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/ content/ internal/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "watchdog: daily scan $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push
+          fi

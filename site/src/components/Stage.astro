@@ -1,0 +1,74 @@
+---
+import { STATUS_LABEL, DIFFICULTY_LABEL, type Stage } from '../lib/timeline';
+
+interface Props {
+  stage: Stage;
+}
+const { stage } = Astro.props;
+
+function hostname(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return 'source';
+  }
+}
+---
+
+<div class="stage" data-status={stage.status}>
+  <div class="card">
+    <div class="stage-head">
+      <h3>{stage.title}</h3>
+      <span class={`badge ${stage.status}`}>{STATUS_LABEL[stage.status]}</span>
+    </div>
+
+    {stage.summary && <p class="stage-summary">{stage.summary}</p>}
+
+    {stage.checkpoints && stage.checkpoints.length > 0 && (
+      <ul class="checkpoints">
+        {stage.checkpoints.map((cp) => (
+          <li>
+            <span class="cp-status" data-s={cp.status}></span>
+            <div class="cp-body">
+              <div class="cp-title">{cp.title}</div>
+              {(cp.date || cp.status) && (
+                <div class="cp-meta">
+                  {STATUS_LABEL[cp.status]}{cp.date ? ` · ${cp.date}` : ''}
+                </div>
+              )}
+              {cp.note && <div class="cp-note">{cp.note}</div>}
+              {cp.sources && cp.sources.length > 0 && (
+                <div>
+                  {cp.sources.map((s, i) => (
+                    <>
+                      {i > 0 && ' · '}
+                      <a href={s} target="_blank" rel="noopener">{hostname(s)}</a>
+                    </>
+                  ))}
+                </div>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {stage.leverage && stage.leverage.length > 0 && (
+      <div class="leverage">
+        <div class="leverage-title">Possible openings</div>
+        {stage.leverage.map((lev) => (
+          <div class="lev">
+            <div class="lev-head">
+              <strong>{lev.title}</strong>
+              <span>
+                <span class="pill domain">{lev.domain}</span>
+                <span class="pill">{DIFFICULTY_LABEL[lev.difficulty] ?? lev.difficulty}</span>
+              </span>
+            </div>
+            <div class="lev-desc">{lev.description}</div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</div>

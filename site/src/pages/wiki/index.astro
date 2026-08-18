@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../lib/url';
+
+const pages = (await getCollection('wiki')).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
+);
+---
+
+<Base title="Knowledge Base" description="Source-linked reference on the MD-PHX1 data center project.">
+  <section class="hero">
+    <h1>Knowledge base</h1>
+    <p class="summary">
+      Factual, source-linked reference pages on the project, the permitting process, and the
+      technical concerns. Maintained by the watchdog and human editors.
+    </p>
+  </section>
+
+  <section>
+    <div class="wiki-grid">
+      {pages.map((page) => (
+        <a class="wiki-card" href={withBase(`wiki/${page.id}`)}>
+          <h3>{page.data.title}</h3>
+          {page.data.description && <p>{page.data.description}</p>}
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

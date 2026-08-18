@@ -1,0 +1,2 @@
+# Snapshot hashes of monitored sources live here (one JSON per source id).
+# Committed so change-detection works across CI runs.

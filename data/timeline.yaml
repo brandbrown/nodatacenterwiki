@@ -1,0 +1,244 @@
+# Canonical checkpoint model for the MD-PHX1 data center project.
+# This file drives the public timeline page. Agents may update `status`,
+# `date`, `sources`, and append leverage items. Keep every factual claim
+# tied to a source URL so the public site stays defensible.
+#
+# stage.status / checkpoint.status values:
+#   done         - completed / granted
+#   in_progress  - actively under review or "in correction"
+#   pending      - not yet started / not yet reached
+#   contested    - approved but being challenged, or a live dispute
+#   blocked      - denied / stalled by the city or an agency (an OPENING for us)
+
+project:
+  name: "MD-PHX1 Data Center (Menlo Digital)"
+  case: "23-1632"
+  address: "4801-4811 E Thistle Landing Dr, Phoenix, AZ 85044"
+  developer: "Menlo Equities / Thistle Income Partners LLC"
+  scale: "5 buildings, ~1,022,400 sq ft, 257 MW, 100+ diesel generators, dedicated SRP substation"
+  developer_targets: "Substation + shells 2026 Q4; data hall delivery 2027 Q1 (per Menlo Digital)"
+  summary: >
+    The site carries a legacy PUD "Data Center Campus" analogous-use entitlement and
+    received preliminary site plan approval in 2024, which exempts it from the stricter
+    2025 Phoenix data center ordinance. The remaining leverage is at the permit-compliance
+    level, not zoning: the Final Plat is denied, several permits are in active correction,
+    and no noise/air/water studies appear in the public record.
+  last_updated: "2026-08-17"
+
+# High-level phases used to compute the progress bar. Ordered.
+stages:
+  - id: zoning-entitlement
+    title: "Zoning & Entitlement"
+    status: done
+    summary: >
+      Land has carried Commerce Park / General Commerce Park zoning since the 1970s-90s.
+      A "Data Center Campus" was approved as an analogous use via the Zoning Administrator's
+      interpretation process rather than a public rezoning.
+    checkpoints:
+      - title: "Legacy PUD / Commerce Park zoning in place"
+        status: done
+        date: "1996"
+        note: "Permits light industrial + office use; predates modern data centers."
+        sources:
+          - "https://www.ahwatukee.com/news/data-center-request-sparks-council-hand-wringing/article_fe96541b-6e93-4727-ae0d-727984a244bb.html"
+      - title: "Data Center Campus approved as analogous use"
+        status: done
+        note: "Approved through informal Zoning Administrator interpretation (Case Z-62-17 framework)."
+        sources:
+          - "https://www.phoenix.gov/content/dam/phoenix/pddsite/documents/planning-zoning-pud/z-62-17n.pdf"
+    leverage:
+      - title: "Challenge the analogous-use interpretation"
+        domain: legal
+        difficulty: high
+        description: >
+          The data center was permitted via an informal analogous-use interpretation, not a
+          public rezoning. Whether that process was proper for an industrial-scale 257 MW
+          facility is a question for the attorney to evaluate. Likely time-barred, but document it.
+
+  - id: preliminary-site-approval
+    title: "Preliminary Site Plan Approval"
+    status: done
+    summary: >
+      Preliminary site approval was granted in 2024. This is the decision that grandfathered
+      the project out of the 2025 data center ordinance (setbacks, added review).
+    checkpoints:
+      - title: "Preliminary site plan approved (2024)"
+        status: done
+        date: "2024"
+        note: "Basis for exemption from 2025 ordinance per Council legal guidance."
+        sources:
+          - "https://www.abc15.com/news/local-news/ahwatukee-neighbors-calling-for-stronger-regulations-on-data-center-under-construction"
+    leverage:
+      - title: "Document the exemption cutoff rationale"
+        domain: legal
+        difficulty: high
+        description: >
+          Council set an applicability cutoff for the 2025 ordinance keyed to preliminary
+          site approval. Confirm the exact date/record and whether MD-PHX1 truly qualified.
+
+  - id: easements
+    title: "Easement Abandonments"
+    status: done
+    summary: >
+      City Council approved abandonment of a 185-ft drainage easement and a 20-ft waterline
+      easement near 48th St & Thistle Landing, needed for the site's drainage solution.
+    checkpoints:
+      - title: "Drainage + waterline easement abandonment approved"
+        status: done
+        date: "2025-07"
+        note: "Approved by Council (one dissenting vote). Framed as a technical action."
+        sources:
+          - "https://www.ahwatukee.com/news/data-center-request-sparks-council-hand-wringing/article_fe96541b-6e93-4727-ae0d-727984a244bb.html"
+
+  - id: final-plat
+    title: "Final Plat"
+    status: blocked
+    summary: >
+      The Final Plat is required before any Certificate of Occupancy. City reviewers have
+      DENIED it. This is currently the single clearest procedural chokepoint.
+    checkpoints:
+      - title: "Final Plat submitted"
+        status: done
+      - title: "Final Plat approved by city reviewers"
+        status: blocked
+        note: "Denied by the city's own reviewers as of site's latest public statement."
+        sources:
+          - "https://nodatacenterahwatukee.org/"
+    leverage:
+      - title: "Keep the Final Plat denial in place"
+        domain: legal
+        difficulty: medium
+        description: >
+          Track every re-submittal. Identify the specific review comments causing denial and
+          whether they are curable. Public comment / records requests on each cycle.
+
+  - id: final-site-plan
+    title: "Final Site Plan"
+    status: in_progress
+    summary: "Final site plan remains in active correction with the city."
+    checkpoints:
+      - title: "Final site plan under review / in correction"
+        status: in_progress
+        sources:
+          - "https://nodatacenterahwatukee.org/"
+    leverage:
+      - title: "Scrutinize each correction cycle for compliance failures"
+        domain: legal
+        difficulty: medium
+        description: "Every correction is a delay opportunity and a record of deficiencies."
+
+  - id: site-grading
+    title: "Grading / Civil / Site Permits"
+    status: in_progress
+    summary: >
+      Site work (grading, demolition, first building shells) is underway under partial permits,
+      even as downstream approvals remain incomplete.
+    checkpoints:
+      - title: "Grading / demolition permits issued"
+        status: done
+      - title: "Civil / site permits fully approved"
+        status: in_progress
+    leverage:
+      - title: "Stormwater / dust / grading compliance"
+        domain: water
+        difficulty: medium
+        description: >
+          AZPDES construction stormwater and dust-control (Maricopa County Rule 310) compliance
+          during active grading. Complaints and inspections can halt work if violations exist.
+
+  - id: building-permits
+    title: "Building Permits"
+    status: in_progress
+    summary: "Both building permits remain in active correction."
+    checkpoints:
+      - title: "Building permit - Building set A in correction"
+        status: in_progress
+        sources:
+          - "https://nodatacenterahwatukee.org/"
+      - title: "Building permit - Building set B in correction"
+        status: in_progress
+        sources:
+          - "https://nodatacenterahwatukee.org/"
+
+  - id: substation
+    title: "SRP Substation Approval"
+    status: pending
+    summary: "Dedicated on-site 257 MW substation approvals (SRP + city) are pending."
+    checkpoints:
+      - title: "Substation design / city approval"
+        status: pending
+      - title: "SRP interconnection / energization"
+        status: pending
+    leverage:
+      - title: "Substation siting + EMF/noise near homes"
+        domain: fire
+        difficulty: medium
+        description: "Review substation setbacks, fencing, fire access, and any required notice."
+
+  - id: air-permits
+    title: "Air Quality Permits (Diesel Generators)"
+    status: pending
+    summary: >
+      100+ diesel backup generators almost certainly trigger Maricopa County Air Quality Dept
+      and/or ADEQ permitting. These processes carry PUBLIC COMMENT periods - the biggest opening.
+    checkpoints:
+      - title: "Air quality permit application filed (Maricopa County / ADEQ)"
+        status: pending
+        note: "Watch for the application and its public comment window."
+      - title: "Public comment period"
+        status: pending
+    leverage:
+      - title: "Air permit public comment (highest-value action)"
+        domain: air
+        difficulty: low
+        description: >
+          NOx, PM2.5, CO, and HAPs from 100+ gensets in a residential area with no buffer.
+          Organized public comment during the permit window is the most concrete, legally
+          recognized way for residents to affect this project. Track filing dates closely.
+
+  - id: noise-compliance
+    title: "Noise / Acoustic Compliance"
+    status: pending
+    summary: >
+      No noise study appears in the record. Cooling + generators run 24/7; terrain creates an
+      amphitheater effect. Compliance with the Phoenix noise ordinance is testable.
+    checkpoints:
+      - title: "Acoustic study demonstrating ordinance compliance"
+        status: pending
+        note: "Independent acoustic study commissioned by residents exists; city record lacks one."
+        sources:
+          - "https://nodatacenterahwatukee.org/"
+    leverage:
+      - title: "Demand a noise study on the record before approvals"
+        domain: acoustic
+        difficulty: medium
+        description: >
+          Require demonstrated compliance with Phoenix noise standards given the amphitheater
+          effect and temperature inversions. Use the residents' independent acoustic study.
+
+  - id: other-utility-fire
+    title: "Water, Stormwater & Fire Review"
+    status: pending
+    summary: "Water/wastewater service, AZPDES stormwater, and fire/hazmat (diesel storage) reviews."
+    checkpoints:
+      - title: "Water / wastewater service approval"
+        status: pending
+      - title: "Fire code + diesel hazmat storage review"
+        status: pending
+    leverage:
+      - title: "Diesel fuel storage hazmat + fire access"
+        domain: fire
+        difficulty: medium
+        description: "Large on-site diesel storage triggers fire code + hazardous materials review."
+
+  - id: occupancy
+    title: "Final Inspections / Certificate of Occupancy"
+    status: pending
+    summary: >
+      The end gate. Cannot be issued without an approved Final Plat and passing all inspections.
+    checkpoints:
+      - title: "Final inspections"
+        status: pending
+      - title: "Certificate of Occupancy"
+        status: pending
+        note: "Blocked while Final Plat remains denied."

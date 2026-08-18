@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import { loadChangelog } from '../lib/changelog';
+
+const entries = loadChangelog();
+
+function fmtDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric',
+    });
+  } catch {
+    return iso;
+  }
+}
+---
+
+<Base title="Latest Developments" description="Auto-detected changes to the MD-PHX1 data center project.">
+  <section class="hero">
+    <h1>Latest developments</h1>
+    <p class="summary">
+      Changes the watchdog detected on official sources (City of Phoenix, Maricopa County Air
+      Quality, ADEQ, SRP) and in local news. Newest first.
+    </p>
+  </section>
+
+  <section>
+    {entries.length === 0 ? (
+      <p class="section-sub">No changes recorded yet.</p>
+    ) : (
+      <div class="change-list">
+        {entries.map((c) => (
+          <div class="change">
+            <div class="date">{fmtDate(c.date)} · {c.source}{c.kind ? ` · ${c.kind}` : ''}</div>
+            <h3>{c.url ? <a href={c.url} target="_blank" rel="noopener">{c.title}</a> : c.title}</h3>
+            <p>{c.summary}</p>
+            {c.domains && c.domains.length > 0 && (
+              <div class="tags">
+                {c.domains.map((d) => <span class="pill domain">{d}</span>)}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )}
+  </section>
+</Base>
