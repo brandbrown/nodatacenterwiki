@@ -35,7 +35,7 @@ delayed, conditioned, or challenged on the record is a real obstacle to operatio
 - Whether the facility is classified as a **minor** or **major** source.
 
 The watchdog scanner monitors Maricopa County and ADEQ public-notice pages for exactly these
-events. When one appears, it will be flagged at the top of the [timeline](/) and in the
+events. When one appears, it will be flagged at the top of the [timeline](../../) and in the
 internal digest.
 
 > This page is informational and source-linked. Specific permit strategy is coordinated with

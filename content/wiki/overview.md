@@ -1,6 +1,6 @@
 ---
 title: "Project Overview"
-description: "What the MD-PHX1 data center is, where it stands, and where the real leverage is."
+description: "What the MD-PHX1 data center is, where it stands, and where residents can still be heard."
 order: 1
 domain: general
 updated: "2026-08-17"
@@ -37,7 +37,7 @@ in **2025** (new setbacks and review requirements), the City Council set an appl
 cutoff and determined the new rules **do not apply** to projects that already had preliminary
 site approval. MD-PHX1 was grandfathered out.
 
-## Where the real leverage is now
+## Where residents can still be heard
 
 This is a **permitting and compliance** fight, not a zoning fight. As of the community's
 latest public accounting:
@@ -49,5 +49,5 @@ latest public accounting:
 
 The highest-value, legally recognized opening is the **air quality permitting** for 100+
 diesel generators through the **Maricopa County Air Quality Department** and/or **ADEQ**,
-which carry **public comment periods**. See the [Permitting Process](permitting-process)
-and [Air Quality & Diesel Generators](air-quality-diesel-generators) pages.
+which carry **public comment periods**. See the [Permitting Process](../permitting-process/)
+and [Air Quality & Diesel Generators](../air-quality-diesel-generators/) pages.

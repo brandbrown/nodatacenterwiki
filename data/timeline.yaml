@@ -1,6 +1,6 @@
 # Canonical checkpoint model for the MD-PHX1 data center project.
 # This file drives the public timeline page. Agents may update `status`,
-# `date`, `sources`, and append leverage items. Keep every factual claim
+# `date`, `sources`, and append community/legal items. Keep every factual claim
 # tied to a source URL so the public site stays defensible.
 #
 # stage.status / checkpoint.status values:
@@ -8,7 +8,10 @@
 #   in_progress  - actively under review or "in correction"
 #   pending      - not yet started / not yet reached
 #   contested    - approved but being challenged, or a live dispute
-#   blocked      - denied / stalled by the city or an agency (an OPENING for us)
+#   blocked      - denied / stalled by the city or an agency
+#
+# community: public-facing actions residents can take at this stage.
+# legal:     attorney-only notes. NOT rendered on the public timeline.
 
 project:
   name: "MD-PHX1 Data Center (Menlo Digital)"
@@ -20,10 +23,10 @@ project:
   summary: >
     The site carries a legacy PUD "Data Center Campus" analogous-use entitlement and
     received preliminary site plan approval in 2024, which exempts it from the stricter
-    2025 Phoenix data center ordinance. The remaining leverage is at the permit-compliance
-    level, not zoning: the Final Plat is denied, several permits are in active correction,
-    and no noise/air/water studies appear in the public record.
-  last_updated: "2026-08-17"
+    2025 Phoenix data center ordinance. The remaining questions are at the permit and
+    compliance level, not zoning: the Final Plat is denied, several permits are in
+    active correction, and no noise/air/water studies appear in the public record.
+  last_updated: "2026-08-18"
 
 # High-level phases used to compute the progress bar. Ordered.
 stages:
@@ -46,11 +49,9 @@ stages:
         note: "Approved through informal Zoning Administrator interpretation (Case Z-62-17 framework)."
         sources:
           - "https://www.phoenix.gov/content/dam/phoenix/pddsite/documents/planning-zoning-pud/z-62-17n.pdf"
-    leverage:
-      - title: "Challenge the analogous-use interpretation"
-        domain: legal
-        difficulty: high
-        description: >
+    legal:
+      - title: "Analogous-use interpretation"
+        note: >
           The data center was permitted via an informal analogous-use interpretation, not a
           public rezoning. Whether that process was proper for an industrial-scale 257 MW
           facility is a question for the attorney to evaluate. Likely time-barred, but document it.
@@ -68,11 +69,9 @@ stages:
         note: "Basis for exemption from 2025 ordinance per Council legal guidance."
         sources:
           - "https://www.abc15.com/news/local-news/ahwatukee-neighbors-calling-for-stronger-regulations-on-data-center-under-construction"
-    leverage:
-      - title: "Document the exemption cutoff rationale"
-        domain: legal
-        difficulty: high
-        description: >
+    legal:
+      - title: "2025 ordinance exemption cutoff"
+        note: >
           Council set an applicability cutoff for the 2025 ordinance keyed to preliminary
           site approval. Confirm the exact date/record and whether MD-PHX1 truly qualified.
 
@@ -104,13 +103,18 @@ stages:
         note: "Denied by the city's own reviewers as of site's latest public statement."
         sources:
           - "https://nodatacenterahwatukee.org/"
-    leverage:
-      - title: "Keep the Final Plat denial in place"
-        domain: legal
-        difficulty: medium
-        description: >
+    community:
+      - title: "Request the plat review file"
+        priority: high
+        how: >
+          Any resident can file a public records request on City of Phoenix Project 23-1632
+          for the Final Plat comments. Share what you learn with neighbors and the Alliance
+          so each re-submittal is tracked in public.
+    legal:
+      - title: "Plat denial posture"
+        note: >
           Track every re-submittal. Identify the specific review comments causing denial and
-          whether they are curable. Public comment / records requests on each cycle.
+          whether they are curable.
 
   - id: final-site-plan
     title: "Final Site Plan"
@@ -121,11 +125,14 @@ stages:
         status: in_progress
         sources:
           - "https://nodatacenterahwatukee.org/"
-    leverage:
-      - title: "Scrutinize each correction cycle for compliance failures"
-        domain: legal
-        difficulty: medium
-        description: "Every correction is a delay opportunity and a record of deficiencies."
+    community:
+      - title: "Follow each correction cycle"
+        how: >
+          Request the current site-plan review comments and any revised drawings. Correction
+          cycles are public; putting them in the community record keeps the process visible.
+    legal:
+      - title: "Correction-cycle deficiencies"
+        note: "Every correction is a record of deficiencies for counsel to review."
 
   - id: site-grading
     title: "Grading / Civil / Site Permits"
@@ -138,13 +145,13 @@ stages:
         status: done
       - title: "Civil / site permits fully approved"
         status: in_progress
-    leverage:
-      - title: "Stormwater / dust / grading compliance"
-        domain: water
-        difficulty: medium
-        description: >
-          AZPDES construction stormwater and dust-control (Maricopa County Rule 310) compliance
-          during active grading. Complaints and inspections can halt work if violations exist.
+    community:
+      - title: "Document on-site conditions"
+        priority: high
+        how: >
+          If you live nearby, note dates, times, and photos of dust, muddy runoff, or unusual
+          noise during grading. Stormwater (AZPDES) and dust-control (Maricopa County Rule 310)
+          complaints can trigger inspections.
 
   - id: building-permits
     title: "Building Permits"
@@ -159,6 +166,11 @@ stages:
         status: in_progress
         sources:
           - "https://nodatacenterahwatukee.org/"
+    community:
+      - title: "Ask for the building-permit comments"
+        how: >
+          Request the open correction items on both building permits. Knowing what the city
+          is still asking for helps the community follow remaining checkpoints.
 
   - id: substation
     title: "SRP Substation Approval"
@@ -169,32 +181,34 @@ stages:
         status: pending
       - title: "SRP interconnection / energization"
         status: pending
-    leverage:
-      - title: "Substation siting + EMF/noise near homes"
-        domain: fire
-        difficulty: medium
-        description: "Review substation setbacks, fencing, fire access, and any required notice."
+    community:
+      - title: "Watch for public notice on the substation"
+        how: >
+          When the substation comes before the city, ask about setbacks, fencing, fire access,
+          and whether nearby homes were noticed. Attend the meeting if one is scheduled.
 
   - id: air-permits
     title: "Air Quality Permits (Diesel Generators)"
     status: pending
     summary: >
       100+ diesel backup generators almost certainly trigger Maricopa County Air Quality Dept
-      and/or ADEQ permitting. These processes carry PUBLIC COMMENT periods - the biggest opening.
+      and/or ADEQ permitting. These processes carry public comment periods — the most
+      concrete way for residents to be heard.
     checkpoints:
       - title: "Air quality permit application filed (Maricopa County / ADEQ)"
         status: pending
         note: "Watch for the application and its public comment window."
       - title: "Public comment period"
         status: pending
-    leverage:
-      - title: "Air permit public comment (highest-value action)"
-        domain: air
-        difficulty: low
-        description: >
-          NOx, PM2.5, CO, and HAPs from 100+ gensets in a residential area with no buffer.
-          Organized public comment during the permit window is the most concrete, legally
-          recognized way for residents to affect this project. Track filing dates closely.
+    community:
+      - title: "Prepare for the air-permit comment window"
+        priority: high
+        how: >
+          This is the highest-value resident action still ahead. When Maricopa County or ADEQ
+          posts a public notice, anyone can submit written comments and/or request a hearing
+          (typically a 30-day window). Watch this page and the Alliance list so the window
+          is not missed. Comments to AQPermits@maricopa.gov must include name, mailing address,
+          and reasons tied to whether the permit meets state criteria.
 
   - id: noise-compliance
     title: "Noise / Acoustic Compliance"
@@ -208,13 +222,13 @@ stages:
         note: "Independent acoustic study commissioned by residents exists; city record lacks one."
         sources:
           - "https://nodatacenterahwatukee.org/"
-    leverage:
-      - title: "Demand a noise study on the record before approvals"
-        domain: acoustic
-        difficulty: medium
-        description: >
-          Require demonstrated compliance with Phoenix noise standards given the amphitheater
-          effect and temperature inversions. Use the residents' independent acoustic study.
+    community:
+      - title: "Ask the city to put a noise study on the record"
+        how: >
+          Contact District 6 (Councilman Kevin Robinson, 602-262-7485,
+          council.district.6@phoenix.gov) and Planning & Development. Ask that approvals
+          demonstrate compliance with Phoenix noise standards, including terrain and
+          temperature inversions. Point them to the residents' independent acoustic study.
 
   - id: other-utility-fire
     title: "Water, Stormwater & Fire Review"
@@ -225,11 +239,11 @@ stages:
         status: pending
       - title: "Fire code + diesel hazmat storage review"
         status: pending
-    leverage:
-      - title: "Diesel fuel storage hazmat + fire access"
-        domain: fire
-        difficulty: medium
-        description: "Large on-site diesel storage triggers fire code + hazardous materials review."
+    community:
+      - title: "Ask about diesel storage and fire access"
+        how: >
+          Large on-site diesel storage is a fire and hazardous-materials question. Ask Phoenix
+          Fire and PDD whether that review is complete and what the public can inspect.
 
   - id: occupancy
     title: "Final Inspections / Certificate of Occupancy"
@@ -242,3 +256,8 @@ stages:
       - title: "Certificate of Occupancy"
         status: pending
         note: "Blocked while Final Plat remains denied."
+    community:
+      - title: "Stay with the process through occupancy"
+        how: >
+          A Certificate of Occupancy is the last city checkpoint. Keep attending Alliance
+          meetings and contacting District 6 so this stage is not rubber-stamped in silence.

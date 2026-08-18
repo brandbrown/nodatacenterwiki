@@ -22,7 +22,7 @@ Phoenix runs two systems, and it matters which one holds this case:
 
 ## The checkpoint chain
 
-See the live [timeline](/) for current status of each. In order:
+See the live [timeline](../../) for current status of each. In order:
 
 1. Zoning / entitlement (done - legacy PUD analogous use)
 2. Preliminary site plan approval (done - 2024, basis of ordinance exemption)

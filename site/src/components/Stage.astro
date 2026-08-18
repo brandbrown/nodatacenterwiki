@@ -1,10 +1,11 @@
 ---
-import { STATUS_LABEL, DIFFICULTY_LABEL, type Stage } from '../lib/timeline';
+import { STATUS_LABEL, type Stage } from '../lib/timeline';
 
 interface Props {
   stage: Stage;
 }
 const { stage } = Astro.props;
+const actions = stage.community ?? [];
 
 function hostname(url: string): string {
   try {
@@ -15,7 +16,7 @@ function hostname(url: string): string {
 }
 ---
 
-<div class="stage" data-status={stage.status}>
+<div class="stage" data-status={stage.status} id={stage.id}>
   <div class="card">
     <div class="stage-head">
       <h3>{stage.title}</h3>
@@ -53,19 +54,13 @@ function hostname(url: string): string {
       </ul>
     )}
 
-    {stage.leverage && stage.leverage.length > 0 && (
-      <div class="leverage">
-        <div class="leverage-title">Possible openings</div>
-        {stage.leverage.map((lev) => (
-          <div class="lev">
-            <div class="lev-head">
-              <strong>{lev.title}</strong>
-              <span>
-                <span class="pill domain">{lev.domain}</span>
-                <span class="pill">{DIFFICULTY_LABEL[lev.difficulty] ?? lev.difficulty}</span>
-              </span>
-            </div>
-            <div class="lev-desc">{lev.description}</div>
+    {actions.length > 0 && (
+      <div class="community">
+        <div class="community-title">Community involvement</div>
+        {actions.map((item) => (
+          <div class={`community-item${item.priority === 'high' ? ' high' : ''}`}>
+            <strong>{item.title}</strong>
+            <p>{item.how}</p>
           </div>
         ))}
       </div>

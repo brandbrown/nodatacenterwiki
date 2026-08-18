@@ -17,11 +17,15 @@ export interface Checkpoint {
   sources?: string[];
 }
 
-export interface Leverage {
+export interface CommunityAction {
   title: string;
-  domain: string;
-  difficulty: 'low' | 'medium' | 'high';
-  description: string;
+  how: string;
+  priority?: 'high' | 'normal';
+}
+
+export interface LegalNote {
+  title: string;
+  note: string;
 }
 
 export interface Stage {
@@ -30,7 +34,8 @@ export interface Stage {
   status: Status;
   summary?: string;
   checkpoints: Checkpoint[];
-  leverage?: Leverage[];
+  community?: CommunityAction[];
+  legal?: LegalNote[];
 }
 
 export interface ProjectMeta {
@@ -80,9 +85,27 @@ export const STATUS_LABEL: Record<Status, string> = {
   blocked: 'Denied / stalled',
 };
 
-// Difficulty of a leverage point => how hard it is to use as an obstacle.
-export const DIFFICULTY_LABEL: Record<string, string> = {
-  low: 'Accessible',
-  medium: 'Moderate',
-  high: 'Long shot',
-};
+export const STATUS_LEGEND: { status: Status; label: string }[] = [
+  { status: 'done', label: 'Complete' },
+  { status: 'in_progress', label: 'In review' },
+  { status: 'pending', label: 'Upcoming' },
+  { status: 'blocked', label: 'Denied / stalled' },
+];
+
+export function openCommunityActions(timeline: Timeline): {
+  stage: Stage;
+  action: CommunityAction;
+}[] {
+  const items: { stage: Stage; action: CommunityAction }[] = [];
+  for (const stage of timeline.stages) {
+    if (stage.status === 'done') continue;
+    for (const action of stage.community ?? []) {
+      items.push({ stage, action });
+    }
+  }
+  return items.sort((a, b) => {
+    const pa = a.action.priority === 'high' ? 0 : 1;
+    const pb = b.action.priority === 'high' ? 0 : 1;
+    return pa - pb;
+  });
+}

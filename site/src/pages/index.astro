@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Stage from '../components/Stage.astro';
-import { loadTimeline, progress } from '../lib/timeline';
+import { loadTimeline, progress, openCommunityActions, STATUS_LEGEND } from '../lib/timeline';
 import { loadChangelog } from '../lib/changelog';
 import { withBase } from '../lib/url';
 
@@ -9,6 +9,8 @@ const timeline = loadTimeline();
 const { done, total, pct } = progress(timeline);
 const p = timeline.project;
 const latest = loadChangelog().slice(0, 3);
+const actions = openCommunityActions(timeline);
+const remaining = timeline.stages.filter((s) => s.status !== 'done').length;
 
 function fmtDate(iso: string): string {
   try {
@@ -33,18 +35,43 @@ function fmtDate(iso: string): string {
 
     <div class="progress-wrap">
       <div class="progress-head">
-        <span class="label">Checkpoints cleared by the developer</span>
-        <span class="pct">{done} / {total} ({pct}%)</span>
+        <span class="label">Checkpoints the developer has cleared</span>
+        <span class="pct">{done} of {total} ({pct}%)</span>
       </div>
       <div class="progress-track">
         <div class="progress-fill" style={`width:${pct}%`}></div>
       </div>
       <p class="progress-note">
-        Fewer remaining checkpoints means less time to act. Denied or stalled stages
-        (in red) are where the project can still be stopped or delayed.
+        {remaining} stages are still open. Green is complete. Yellow is in city review.
+        Red is denied or stalled. Gray has not been reached yet.
       </p>
+      <div class="legend">
+        {STATUS_LEGEND.map((item) => (
+          <span class={`badge ${item.status}`}>{item.label}</span>
+        ))}
+      </div>
     </div>
   </section>
+
+  {actions.length > 0 && (
+    <section class="involve-section">
+      <h2 class="section-title">Where the community can get involved</h2>
+      <p class="section-sub">
+        These are resident actions at stages that are still open — records requests, comments,
+        documentation, and asking officials questions. Legal strategy stays with the Alliance
+        and its attorney and is not listed here.
+      </p>
+      <div class="involve-grid">
+        {actions.map(({ stage, action }) => (
+          <a class={`involve-card${action.priority === 'high' ? ' high' : ''}`} href={`#${stage.id}`}>
+            <div class="involve-stage">{stage.title}</div>
+            <strong>{action.title}</strong>
+            <p>{action.how}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 
   {latest.length > 0 && (
     <section>
@@ -66,10 +93,10 @@ function fmtDate(iso: string): string {
   )}
 
   <section>
-    <h2 class="section-title">Project timeline &amp; checkpoints</h2>
+    <h2 class="section-title">Project timeline</h2>
     <p class="section-sub">
-      Every stage this project must clear, its current status, and where residents may be able
-      to intervene. Openings are leads, coordinated with the Alliance and its attorney.
+      Every approval this project still has to clear, in order. Under open stages, look for
+      <b>Community involvement</b> — concrete things neighbors can do at that checkpoint.
     </p>
     <div class="timeline">
       {timeline.stages.map((stage) => <Stage stage={stage} />)}
@@ -79,6 +106,6 @@ function fmtDate(iso: string): string {
   <div class="notice">
     This is a volunteer watchdog tool. Status reflects public records and news as of
     {' '}{fmtDate(p.last_updated)}. Always verify time-sensitive items (like permit comment
-    windows) against the official source before acting.
+    windows) against the official source before acting. Nothing on this site is legal advice.
   </div>
 </Base>
