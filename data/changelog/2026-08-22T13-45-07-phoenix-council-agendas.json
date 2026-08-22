@@ -1,0 +1,14 @@
+{
+  "id": "2026-08-22T13-45-07-phoenix-council-agendas",
+  "date": "2026-08-22T13:45:07.317Z",
+  "source": "Phoenix City Council - agendas & minutes",
+  "sourceId": "phoenix-council-agendas",
+  "kind": "change",
+  "title": "Change detected: Phoenix City Council - agendas & minutes",
+  "summary": "The monitored content at this source changed since the last scan. Automated analysis will summarize what changed. Preview: \"Skip to main content Close Alert Extreme Heat Warning Active until Friday, August 28. For public safety, certain trails are restricted from 8 a.m. to 5 p.m. Trail Heat Safety Program Read more City of Phoenix official website English Spanis...\"",
+  "url": "https://www.phoenix.gov/cityclerk/publicmeetings/city-council-meetings",
+  "domains": [
+    "legal"
+  ],
+  "analyzed": false
+}
