@@ -1,0 +1,17 @@
+{
+  "id": "2026-08-24T14-02-47-alliance-site",
+  "date": "2026-08-24T14:02:47.682Z",
+  "source": "No Data Center Ahwatukee - homepage + documents",
+  "sourceId": "alliance-site",
+  "kind": "change",
+  "title": "Change detected: No Data Center Ahwatukee - homepage + documents",
+  "summary": "The monitored content at this source changed since the last scan. Automated analysis will summarize what changed. Preview: \"Homepage Documents Videos Homepage Documents Videos 💚 Make a Donation 🪧 Order Yard Signs ✉️ Join Our Email List STOP THE DATA CENTER IN AHWATUKEE 4801 E THISTLE LANDING, PHOENIX, ARIZONA 85044 A 257 megawatt data center is under construct...\"",
+  "url": "https://nodatacenterahwatukee.org/",
+  "domains": [
+    "legal",
+    "acoustic",
+    "air",
+    "water"
+  ],
+  "analyzed": false
+}
