@@ -1,0 +1,14 @@
+{
+  "id": "2026-08-25T14-04-49-maricopa-permit-reports",
+  "date": "2026-08-25T14:04:49.974Z",
+  "source": "Maricopa County Air Quality - weekly permit application reports",
+  "sourceId": "maricopa-permit-reports",
+  "kind": "change",
+  "title": "Change detected: Maricopa County Air Quality - weekly permit application reports",
+  "summary": "The monitored content at this source changed since the last scan. Automated analysis will summarize what changed. Preview: \"Skip to Main Content I Want To... Services Departments HomeDepartmentsAir QualityPermittingPermitting and Enforcement Reports Permitting and Enforcement Reports Weekly Permit Applications Received The weekly permit applications received rep...\"",
+  "url": "https://www.maricopa.gov/2427/Permitting-and-Enforcement-Reports",
+  "domains": [
+    "air"
+  ],
+  "analyzed": false
+}
