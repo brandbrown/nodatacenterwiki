@@ -1,0 +1,14 @@
+{
+  "id": "2026-08-27T22-57-49-pdd-online-case",
+  "date": "2026-08-27T22:57:49.180Z",
+  "source": "Phoenix PDDOnline (legacy KIVA) - case 23-1632",
+  "sourceId": "pdd-online-case",
+  "kind": "change",
+  "title": "Change detected: Phoenix PDDOnline (legacy KIVA) - case 23-1632",
+  "summary": "The monitored content at this source changed since the last scan. Automated analysis will summarize what changed. Preview: \"_Layout PDD Online Permits Search Permit Inspections Electronic Plan Review Online Payments Log On PDD Online Following the April 27th SHAPE PHX release, NEW applications for permits will be submitted via the new customer facing SHAPE PHX P...\"",
+  "url": "https://apps-secure.phoenix.gov/PDD",
+  "domains": [
+    "legal"
+  ],
+  "analyzed": false
+}
