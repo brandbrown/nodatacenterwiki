@@ -1,0 +1,14 @@
+{
+  "id": "2026-08-31T19-30-27-phoenix-council-agendas",
+  "date": "2026-08-31T19:30:27.008Z",
+  "source": "Phoenix City Council - agendas & minutes",
+  "sourceId": "phoenix-council-agendas",
+  "kind": "change",
+  "title": "Change detected: Phoenix City Council - agendas & minutes",
+  "summary": "The monitored content at this source changed since the last scan. Automated analysis will summarize what changed. Preview: \"Skip to main content Close Alert This alert has expired. Please change the scheduled time and publish to show again or delete. Active until Saturday, August 29. For public safety, certain trails are restricted from 8 a.m. to 5 p.m. Trail He...\"",
+  "url": "https://www.phoenix.gov/cityclerk/publicmeetings/city-council-meetings",
+  "domains": [
+    "legal"
+  ],
+  "analyzed": false
+}
